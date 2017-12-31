@@ -8,10 +8,10 @@ import { APIService } from '../../core/api.service';
     <button mat-button [routerLink]="['../../']">🡨 Home</button>
     <div class='items'>
       <div class='item' *ngFor='let item of items' [routerLink]="['./', item.id]">
-        <div class='item-name'>{{item.name}}</div>
+        <p class='item-name'>{{item.name}}</p>
       </div>
     </div>
-    <button mat-button *ngIf="moreToLoad" class='center' (click)="loadMore()">Load More</button>
+    <button mat-button *ngIf="moreToLoad" class='center' (click)="loadMore()">Load More...</button>
     <loading-animation *ngIf="showLoading"></loading-animation>
   `,
   styles: [`
@@ -55,6 +55,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.apiService.getListOfNamesFromCategory(params.category).subscribe(data => {
+          console.log(data);
          this.items = data.list;
          this.showLoading = false;
          this.moreToLoad = data.nextExists;

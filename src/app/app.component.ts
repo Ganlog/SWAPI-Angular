@@ -7,12 +7,7 @@ import { Component } from '@angular/core';
     <p>A visual guide</p>
     <router-outlet></router-outlet>
   `,
-  styles: [`
-    h1,p{
-      margin: 0;
-      text-align: center;
-    }
-  `]
+  styles: []
 })
 export class AppComponent {
   title = 'app';

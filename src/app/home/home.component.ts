@@ -7,7 +7,7 @@ import { APIService } from '../core/api.service';
   <div class='categories'>
     <div class='category' *ngFor='let category of categories' [routerLink]="['/list', category]">
       <img class='category-img' [src]="'/assets/images/'+category+'.png'">
-      <div class='category-name'>{{category}}</div>
+      <p class='category-name'>{{category}}</p>
     </div>
   </div>
   <loading-animation *ngIf="showLoading"></loading-animation>
