@@ -90,10 +90,8 @@ export class ListComponent implements OnInit {
     let windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
     let docHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
     let windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight) {
-      console.log("tru");
+    if (windowBottom >= docHeight)
       return true;
-    }
   }
 
 }

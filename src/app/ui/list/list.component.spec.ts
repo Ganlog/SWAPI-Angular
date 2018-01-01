@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerAnimation } from '../../core/custom-elements/loading-animation.component';
@@ -26,5 +26,13 @@ describe('ListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have ngOnInit function', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
+
+  it('should have onWindowScroll function', () => {
+    expect(component.onWindowScroll).toBeTruthy();
   });
 });
