@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerAnimation } from '../../core/custom-elements/loading-animation.component';
+import { APIService } from '../../core/api.service';
 import { ItemDetailsComponent } from './item-details.component';
 
 describe('ItemDetailsComponent', () => {
@@ -8,7 +11,9 @@ describe('ItemDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemDetailsComponent ]
+      imports: [ RouterTestingModule, HttpClientModule ],
+      declarations: [ ItemDetailsComponent, LoadingSpinnerAnimation ],
+      providers: [ APIService ]
     })
     .compileComponents();
   }));

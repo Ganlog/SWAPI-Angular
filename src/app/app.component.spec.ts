@@ -1,5 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { APIService } from './core/api.service';
+import { LoadingSpinnerAnimation } from './core/custom-elements/loading-animation.component';
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -8,7 +10,11 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        LoadingSpinnerAnimation,
+      ],
+      providers: [
+        APIService,
       ],
     }).compileComponents();
   }));
@@ -26,6 +32,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Beers');
+    expect(compiled.querySelector('h1').textContent).toContain('Star Wars');
   }));
 });
