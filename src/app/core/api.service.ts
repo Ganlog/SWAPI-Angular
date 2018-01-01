@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class APIService {
-  private apiURL = 'https://swapi.co/api/';
+  public apiURL = 'https://swapi.co/api/';
   private nextNamesURL = '';
 
   constructor(private http: HttpClient) { }

@@ -1,6 +1,7 @@
 # SWAPI-Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.2.
+Preview application [here](https://swapi-angular.firebaseapp.com/)
 
 ## Development server
 
