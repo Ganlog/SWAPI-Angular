@@ -10,16 +10,18 @@ import { APIService } from '../../core/api.service';
     <div class='container'>
       <div class='info' *ngIf="!showLoading">
         <h3 class='name'>{{name}}</h3>
-        <div *ngFor='let key of objectKeys(informations)'>
-          <p class='item-info'><span class='bold'>{{key}}</span>: {{informations[key]}}</p>
+        <div>
+          <div *ngFor='let key of objectKeys(informations)'>
+            <p><span class='bold'>{{key}}: </span>{{informations[key]}}</p>
+          </div>
         </div>
       </div>
       <div class='links' *ngIf="!showLoading">
         <div class='links-category' *ngFor='let key of objectKeys(linksInCategories)'>
           <p class='name'>{{key}}</p>
-          <div class='links-list' *ngFor='let link of linksInCategories[key]'>
-            <a href="{{link}}" class='link'>{{link}}</a>
-          </div>
+          <span *ngFor='let link of linksInCategories[key]; let i=index'>
+            <a [routerLink]="link" (click)="onLinkClick()" class='link'>Link{{i+1}}</a><span>, </span>
+          </span>
         </div>
       </div>
     </div>
@@ -29,34 +31,35 @@ import { APIService } from '../../core/api.service';
     .container{
       margin: auto;
       text-align: center;
-      display:relative;
     }
     .info, .links{
-      display: inline-table;
-      width: 400px;
+      display: inline-block;
+      width: 500px;
+      height: 100%;
+      vertical-align: top;
+      margin-top: 10px;
     }
     .info{
       background: #2D2D2D;
       border-radius: 10px;
-      position: relative;
-      padding: 10px;
-      cursor: pointer;
+      padding-bottom: 10px;
+    }
+    .info p{
+      padding: 5px;
+      text-align: left;
+      display: block;
     }
     .name{
-      margin: 5px;
-      text-align: center;
-      font-weight: bold;
+      padding: 10px 0;
     }
     .bold{
       font-weight: bold;
     }
-    .links{
-      position: relative;
-      top:0;
-    }
     .links-category{
       background: #2D2D2D;
       border-radius: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
     }
   `]
 })
@@ -70,18 +73,21 @@ export class ItemDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: APIService,
-  ) { }
+  ) { };
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.apiService.getDetailedInfo(params.category, params.id).subscribe(data => {
-        console.log(data);
         this.name = data.name;
         this.informations = data.info;
         this.linksInCategories = data.linksInCategories;
         this.showLoading = false;
       });
     });
+  }
+
+  onLinkClick() {
+    this.showLoading = true;
   }
 
 }

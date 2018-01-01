@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { APIService } from '../../core/api.service';
 
@@ -11,7 +11,6 @@ import { APIService } from '../../core/api.service';
         <p class='item-name'>{{item.name}}</p>
       </div>
     </div>
-    <button mat-button *ngIf="moreToLoad" class='center' (click)="loadMore()">Load More...</button>
     <loading-animation *ngIf="showLoading"></loading-animation>
   `,
   styles: [`
@@ -55,24 +54,46 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.apiService.getListOfNamesFromCategory(params.category).subscribe(data => {
-          console.log(data);
          this.items = data.list;
          this.showLoading = false;
          this.moreToLoad = data.nextExists;
+         if (this.isBottomReached())
+           this.loadMore();
       });
     });
   }
 
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    if (this.isBottomReached())
+      this.loadMore();
+  }
+
   loadMore(){
-    this.moreToLoad = false;
-    this.showLoading = true;
-    this.route.params.subscribe(params => {
-      this.apiService.loadMoreNames().subscribe(data => {
-         Array.prototype.push.apply(this.items, data.list);
-         this.showLoading = false;
-         this.moreToLoad = data.nextExists;
+    if(this.moreToLoad){
+      this.moreToLoad = false;
+      this.showLoading = true;
+      this.route.params.subscribe(params => {
+        this.apiService.loadMoreNames().subscribe(data => {
+           Array.prototype.push.apply(this.items, data.list);
+           this.showLoading = false;
+           this.moreToLoad = data.nextExists;
+           if (this.isBottomReached())
+             this.loadMore();
+        });
       });
-    });
+    }
+  }
+
+  isBottomReached(){
+    let status = "not reached";
+    let windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+    let docHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+    let windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight) {
+      console.log("tru");
+      return true;
+    }
   }
 
 }

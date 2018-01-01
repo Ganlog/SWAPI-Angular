@@ -72,11 +72,18 @@ export class APIService {
 
     for (let dataLabel in itemData) {
       if(dataLabel != 'name' && dataLabel != 'title' && dataLabel != 'url')
-        if(typeof itemData[dataLabel] == 'object')
-          properItemData.linksInCategories[dataLabel] = itemData[dataLabel];
+        if(typeof itemData[dataLabel] == 'object'){
+          for(let link in itemData[dataLabel])
+            itemData[dataLabel][link] = itemData[dataLabel][link].replace('https://swapi.co/api/','../../');
+          properItemData.linksInCategories[this.makePrettierKey(dataLabel)] = itemData[dataLabel];
+        }
         else
-          properItemData.info[dataLabel] = itemData[dataLabel];
+          properItemData.info[this.makePrettierKey(dataLabel)] = itemData[dataLabel];
     }
     return properItemData;
+  }
+
+  makePrettierKey(key){
+    return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
 }
