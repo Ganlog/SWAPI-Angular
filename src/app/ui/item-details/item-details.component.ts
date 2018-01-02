@@ -12,7 +12,12 @@ import { APIService } from '../../core/api.service';
         <h3 class='name'>{{name}}</h3>
         <div>
           <div *ngFor='let key of objectKeys(informations)'>
-            <p><span class='bold'>{{key}}: </span>{{informations[key]}}</p>
+            <div *ngIf="(key == 'Homeworld'); else else_content">
+              <p><span class='bold'>{{key}}: </span><a [routerLink]="['../../'+informations[key]]" (click)="onLinkClick()">link</a></p>
+            </div>
+            <ng-template #else_content>
+              <p><span class='bold'>{{key}}: </span><span>{{informations[key]}}</span></p>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -20,7 +25,7 @@ import { APIService } from '../../core/api.service';
         <div class='links-category' *ngFor='let key of objectKeys(linksInCategories)'>
           <p class='name'>{{key}}</p>
           <span *ngFor='let link of linksInCategories[key]; let i=index'>
-            <a [routerLink]="link" (click)="onLinkClick()" class='link'>Link{{i+1}}</a><span>, </span>
+            <a [routerLink]="['../../'+link]" (click)="onLinkClick()">Link{{i+1}}</a><span>, </span>
           </span>
         </div>
       </div>
