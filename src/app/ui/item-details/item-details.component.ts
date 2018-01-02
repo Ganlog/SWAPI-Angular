@@ -66,6 +66,11 @@ import { APIService } from '../../core/api.service';
       margin-bottom: 10px;
       padding-bottom: 10px;
     }
+    @media only screen and (max-width: 500px) {
+      .info, .links{
+          width: 90%;
+      }
+    }
   `]
 })
 export class ItemDetailsComponent implements OnInit {

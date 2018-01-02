@@ -38,6 +38,12 @@ import { APIService } from '../../core/api.service';
       margin: auto;
       display: block;
     }
+    @media only screen and (max-width: 500px) {
+      .item{
+          width: 150px;
+          height: 100px;
+      }
+    }
   `]
 })
 export class ListComponent implements OnInit {

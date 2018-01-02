@@ -37,6 +37,16 @@ import { APIService } from '../core/api.service';
       left: 50%;
       transform: translate(-50%);
     }
+    @media only screen and (max-width: 500px) {
+      .category{
+          width: 150px;
+          height: 175px;
+      }
+      .category-img{
+        max-width: 150px;
+        max-height: 150px;
+      }
+    }
   `]
 })
 export class HomeComponent implements OnInit {
